@@ -1,24 +1,28 @@
-import pandas
-import pdb
-pdb.set_trace()
-H_data=pandas.read_csv('file-h.csv')
-S_data=pandas.read_csv('file-s.csv',header=None)
-A_data=pandas.read_csv('file-artifact.csv',header=None)
+import pandas as pd
+# import pdb
+# pdb.set_trace()
 
-count=0
-list_of_lists=[[] for x in range (0,27)]
-for i in range(0, len(H_data['TYP'])):
-	if H_data['TYP'][i]==768:
-		position=H_data['POS'][i+1]
-		label=H_data['TYP'][i+1]
-		count+=1
-		if(H_data['TYP'][i+1] == 769 or H_data['TYP'][i+1] == 770 or H_data['TYP'][i+1] == 771) and A_data[0][count]==0:
-			for x in range (0,25):
-				list_of_lists[x] = list_of_lists[x]+list(S_data[x][position-1:position-1+H_data['DUR'][i]-500])
-			list_class=[label for x in range (0,H_data['DUR'][i]-500)]
-			list_of_lists[25] =list_of_lists[25]+ list_class
-			list_count=[count for x in range (0,H_data['DUR'][i]-500)]
-			list_of_lists[26] =list_of_lists[26] + list_count
-df = pandas.DataFrame(list_of_lists)
-df=df.transpose()
-df.to_csv('list.csv', index=False)
+
+def separate_classwise(filename = ""):
+
+	df = pd.read_csv(filename)
+	mat1 = df[(df['132'] == 769)]
+	mat2 = df[(df['132'] == 770)]
+
+	del mat1['132']
+	del mat1['133']
+	del mat2['132']
+	del mat2['133']
+
+	mat1.index = range(len(mat1))
+	mat2.index = range(len(mat2))
+
+
+	# mat1 = mat1.transpose()
+	# mat2 = mat2.transpose()
+
+	mat1.to_csv('left-signals.csv')
+	mat2.to_csv('right-signals.csv')
+
+# this file has the first row as header, remove it manually before importing in matlab
+separate_classwise('filtered-list.csv')
