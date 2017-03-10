@@ -1,7 +1,7 @@
 # from sklearn.neural_network import MLPClassifier
 # from sklearn.metrics import accuracy_score as accuracy
 # clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(64, 32), random_state=1,verbose=True)
-import pandas as pd
+# import pandas as pd
 # import scipy.io as spio
 #
 # left_signals = spio.loadmat('./left_signals')['left_signals']
