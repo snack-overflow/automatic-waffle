@@ -4,15 +4,14 @@ right_cov= zeros(132,132);
 
 for i= 1:1:left_trial;
     trial=left(:,:,i);
-    cov=(1/row)*trial*(eye(row)-ones([row 1])*ones([1 row]));
-    
+    cov=(1/column) *trial* (eye(column)-ones([column 1])*ones([1 column]));
     left_cov = left_cov + (cov * cov');
 end
 left_cov=left_cov/left_trial;
     
 for i= 1:1:right_trial;
     trial=right(:,:,i);
-    cov=(1/row)*trial*(eye(row)-ones([row 1])*ones([1 row]));
+    cov=(1/column) *trial* (eye(column)-ones([column 1])*ones([1 column]));
     right_cov = right_cov + (cov * cov');
 end
 right_cov=right_cov/right_trial;

@@ -1,6 +1,6 @@
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score as accuracy
-clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(64, 32), random_state=1,verbose=True)
+# from sklearn.neural_network import MLPClassifier
+# from sklearn.metrics import accuracy_score as accuracy
+# clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(64, 32), random_state=1,verbose=True)
 import pandas as pd
 # import scipy.io as spio
 #
@@ -8,24 +8,24 @@ import pandas as pd
 #
 #
 import numpy as np
-# from keras.models import Sequential
-# from keras.layers import Dense, Activation,Dropout,LSTM
+from keras.models import Sequential
+from keras.layers import Dense, Activation,Dropout,LSTM
 # import pandas as pd
 from numpy import *
 import random
-# # import pdb; pdb.set_trace()
-# model = Sequential([
-#     Dense(64, input_dim=132),
-#     Activation('relu'),
-#     Dense(64),
-#     Activation('relu'),
-#     Dropout(0.5),
-#     Dense(1,activation = 'softmax'),
-# ])
-#
-# model.compile(optimizer='rmsprop',
-#               loss='binary_crossentropy',
-#               metrics=['accuracy'])
+# import pdb; pdb.set_trace()
+model = Sequential([
+    Dense(64, input_dim=132),
+    LSTM(64,input_dim=(1375,132),return_sequences=True),
+    model.add(LSTM(32, return_sequences=True)),
+    model.add(LSTM(32)),
+    Activation('sigmoid'),
+    Dense(1,activation = 'softmax'),
+])
+
+model.compile(optimizer='adam',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
 
 
 left = pd.read_csv('W_into_left.csv',header=None)
@@ -55,13 +55,15 @@ test_data = left.as_matrix()[-(1375*5):][:]
 test_data = vstack((test_data, right.as_matrix()[-(1375*5):][:]))
 
 labels = list(labels)
-clf.fit(data,labels)
-ypred = clf.predict(test_data)
-score = accuracy(test_labels,ypred)
+# clf.fit(data,labels)
+# ypred = clf.predict(test_data)
+# score = accuracy(test_labels,ypred)
+
 # data = np.random.random((1000, 784))
 # labels = np.random.randint(2, size=(1000, 1))
-# test_data = np.random.random((200, 784))
-# test_labels = np.random.randint(2, size=(200, 1))
-# model.fit(data, labels, nb_epoch=10, batch_size=32)
-# score = model.evaluate(test_data, test_labels, batch_size=16)
+
+test_data = np.random.random((200, 784))
+test_labels = np.random.randint(2, size=(200, 1))
+model.fit(data, labels, nb_epoch=10, batch_size=32)
+score = model.evaluate(test_data, test_labels, batch_size=16)
 print score
