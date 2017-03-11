@@ -10,4 +10,4 @@ for i=1:1:22;
 %          data=[data output]; 
 %      end
 end
-csvwrite('filtered.csv',data);
+csvwrite('second-filtered.csv',data);

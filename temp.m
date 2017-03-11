@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 %%% Plot FFT of signal data 'fdata'
 
 % sample = fdata;
