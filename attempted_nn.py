@@ -10,7 +10,7 @@
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Activation,Dropout,LSTM
-import pandas as pd
+# import pandas as pd
 from numpy import *
 import random
 from keras.models import load_model

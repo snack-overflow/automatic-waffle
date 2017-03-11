@@ -5,7 +5,6 @@ right_cov= zeros(132,132);
 for i= 1:1:left_trial;
     trial=left(:,:,i);
     cov=(1/column)*trial*(eye(column)-ones([column 1])*ones([1 column]));
-    
     left_cov = left_cov + (cov * cov');
 end
 
