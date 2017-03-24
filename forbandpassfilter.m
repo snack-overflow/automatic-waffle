@@ -10,4 +10,4 @@ for i=1:1:22;
 %          data=[data output]; 
 %      end
 end
-csvwrite('second-filtered.csv',data);
+csvwrite('./data/A04T-filtered.csv',data);

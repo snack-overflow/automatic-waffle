@@ -19,7 +19,7 @@ end
 
 right_cov=right_cov/right_trial;
 
-[V W]=eig(right_cov,left_cov+right_cov);
+[V, W]=eig(right_cov,left_cov+right_cov);
 
 
 

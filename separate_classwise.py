@@ -3,9 +3,9 @@ import pandas as pd
 # pdb.set_trace()
 
 
-def separate_classwise(filename = ""):
+def separate_classwise(dataset = ""):
 
-	df = pd.read_csv(filename)
+	df = pd.read_csv('./data/'+dataset+'-filtered-list.csv')
 	mat1 = df[(df['132'] == 769)]
 	mat2 = df[(df['132'] == 770)]
 
@@ -20,9 +20,16 @@ def separate_classwise(filename = ""):
 
 	# mat1 = mat1.transpose()
 	# mat2 = mat2.transpose()
-
-	mat1.to_csv('left-signals.csv')
-	mat2.to_csv('right-signals.csv')
+	print "done working " + dataset
+	mat1.to_csv('./data/'+dataset+'-left-signals.csv')
+	mat2.to_csv('./data/'+dataset+'-right-signals.csv')
+	print "done saving " + dataset
 
 # this file has the first row as header, remove it manually before importing in matlab
-separate_classwise('filtered-list.csv')
+separate_classwise('A03T')
+separate_classwise('A04T')
+separate_classwise('A05T')
+separate_classwise('A06T')
+separate_classwise('A07T')
+separate_classwise('A08T')
+separate_classwise('A09T')

@@ -5,4 +5,9 @@ filtered.csv
 filtered-list.csv
 W*csv
 octave-workspace
+<<<<<<< HEAD
+data/
+BCICIV_2a_gdf/
+=======
 A0*
+>>>>>>> 9968b431dbc914627c508752cca67177416df171
