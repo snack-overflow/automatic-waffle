@@ -53,11 +53,14 @@ import random
 model = Sequential()
 model.add(LSTM(64,input_shape=(1375,132),return_sequences=True))
 model.add(LSTM(32, return_sequences=True, inner_activation='sigmoid', activation='hard_sigmoid'))
+# model.add(Dropout(0.2))
 model.add(LSTM(32, inner_activation='sigmoid', activation='hard_sigmoid'))
-model.add(Dense(1,activation = 'softmax'))
+# model.add(Dropout(0.2))
+
+model.add(Dense(1,activation = 'sigmoid'))
 
 
-model.compile(optimizer='rmsprop',
+model.compile(optimizer='adam',
               loss='binary_crossentropy',
               metrics=['accuracy'])
 
@@ -129,6 +132,5 @@ model.save('my_model.h5')
 
 # model = load_model('my_model.h5')
 
-score,acc = model.evaluate(test_data, test_labels)
-print score
-print acc
+scores = model.evaluate(test_data, test_labels, verbose=0)
+print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
