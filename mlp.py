@@ -60,9 +60,11 @@ pca = PCA(n_components=15)
 data = pca.fit_transform(data)
 
 clf = MLPClassifier(solver='adam',activation='logistic',
- alpha=1e-5, hidden_layer_sizes=(32), random_state=1,verbose=True)
+ alpha=0.25, hidden_layer_sizes=(32),verbose=True,warm_start=True,tol=0.000001)
 
-clf.fit(data,labels)
+for i in range(200):
+    print "**",i
+    clf.fit(data,labels)
 
 
 

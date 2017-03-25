@@ -51,10 +51,11 @@ import random
 
 # # import pdb; pdb.set_trace()
 model = Sequential()
-model.add(LSTM(64,input_shape=(1375,132),return_sequences=True))
-model.add(LSTM(32, return_sequences=True, inner_activation='sigmoid', activation='hard_sigmoid'))
+model.add(Dropout(0.2, input_shape=(1375,132)))
+model.add(LSTM(250,input_shape=(1375,132),activation='tanh'))
+# model.add(LSTM(32, return_sequences=True, inner_activation='sigmoid', activation='hard_sigmoid'))
 # model.add(Dropout(0.2))
-model.add(LSTM(32, inner_activation='sigmoid', activation='hard_sigmoid'))
+# model.add(LSTM(32, inner_activation='sigmoid', activation='hard_sigmoid'))
 # model.add(Dropout(0.2))
 
 model.add(Dense(1,activation = 'sigmoid'))
@@ -69,11 +70,11 @@ model.compile(optimizer='adam',
 #
 # model = load_model('my_model.h5')
 
-left = pd.read_csv('W_into_left.csv',header=None)
-right = pd.read_csv('W_into_right.csv',header=None)
+left = pd.read_csv('left-signals.csv',header=None)
+right = pd.read_csv('right-signals.csv',header=None)
 print "Finally done loading files :P"
-left = left.transpose()
-right = right.transpose()
+# left = left.transpose()
+# right = right.transpose()
 # left = pd.DataFrame(np.random.rand(1375*10,132))
 # right = pd.DataFrame(np.random.rand(1375*10,132))
 
