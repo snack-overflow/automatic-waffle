@@ -1,0 +1,1 @@
+dropout_after_sequential,lstm_1_nodes,lstm_1_activation,dropout_after_lstm_1,lstm_2_nodes,lstm_2_activation,dropout_after_lstm_2,epochs,dense_activation,accuracy

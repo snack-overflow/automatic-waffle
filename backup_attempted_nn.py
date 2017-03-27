@@ -3,6 +3,7 @@
 # clf = MLPClassifier(solver='adam',activation='logistic', alpha=1e-5, hidden_layer_sizes=(64, 64), random_state=1,verbose=True)
 import pandas as pd
 from sklearn.preprocessing import scale
+import csv
 
 def dense_to_one_hot(labels_dense,num_classes=2):
     num_labels = labels_dense.shape[0]
@@ -57,7 +58,7 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 		return
 	if lstm_2_activation in ('hard_sigmoid','softmax'):
 		return
-	df = pd.read_csv('nn_result.csv',header=None)
+	# df = pd.read_csv('nn_result.csv',header=None)
 
 
 	# to check later if we are retraining on a particular case
@@ -126,7 +127,9 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 	labels = []
 	# for i in range(len(left)-1375*5):
 	#     labels.append(0)
-	#
+	#right_test_samples)]
+	# test_data = left.as_matrix()[-(1375*50):][:]
+	# test_data = vstack((test_data, 
 	# for i in range(len(right)-1375*5):
 	#     labels.append(1)
 	for i in range(left_train_samples):
@@ -189,10 +192,13 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 	scores = model.evaluate(test_data, test_labels, verbose=0)
 	print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 	res = [dropout_after_sequential, lstm_1_nodes, lstm_1_activation, dropout_after_lstm_1, lstm_2_nodes, lstm_2_activation, dropout_after_lstm_2, epochs,dense_activation, scores[1]*100]
-	res = pd.DataFrame(res)
-	res = res.T
-	df = df.append(res)
-	df.to_csv('nn_result.csv')
+	# res = pd.DataFrame(res)
+	# res = res.T
+	# df = df.append(res)
+	# df.to_csv('nn_result.csv')
+	with open("new_nn_result.csv", "a") as fp:
+    	wr = csv.writer(fp, dialect='excel')
+    	wr.writerow(res)
 
 
 
