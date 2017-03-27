@@ -3,7 +3,6 @@
 # clf = MLPClassifier(solver='adam',activation='logistic', alpha=1e-5, hidden_layer_sizes=(64, 64), random_state=1,verbose=True)
 import pandas as pd
 from sklearn.preprocessing import scale
-import csv
 
 def dense_to_one_hot(labels_dense,num_classes=2):
     num_labels = labels_dense.shape[0]
@@ -58,7 +57,7 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 		return
 	if lstm_2_activation in ('hard_sigmoid','softmax'):
 		return
-	# df = pd.read_csv('nn_result.csv',header=None)
+	df = pd.read_csv('nn_result.csv',header=None)
 
 
 	# to check later if we are retraining on a particular case
@@ -76,12 +75,10 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 	# 	return
 
 	num_channels = 25
-	#left_train_samples = 519
-	left_train_samples = 100
-	#right_train_samples = 535
- 	right_train_samples=100
-	left_test_samples = 20
-	right_test_samples = 20
+	left_train_samples = 519
+	right_train_samples = 535
+	left_test_samples = 50
+	right_test_samples = 50
 
 
 	model = Sequential()
@@ -127,15 +124,13 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 	labels = []
 	# for i in range(len(left)-1375*5):
 	#     labels.append(0)
-	#right_test_samples)]
-	# test_data = left.as_matrix()[-(1375*50):][:]
-	# test_data = vstack((test_data, 
+	#
 	# for i in range(len(right)-1375*5):
 	#     labels.append(1)
-	for i in range(left_train_samples):
+	for i in range(100):
 	    labels.append(0)
 
-	for i in range(right_train_samples):
+	for i in range(100):
 	    labels.append(1)
 
 
@@ -171,15 +166,15 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 	# test_data = left.as_matrix()[-(1375*5):][:]
 	# test_data = vstack((test_data, right.as_matrix()[-(1375*5):][:]))
 
-	test_labels = [0 for i in range(left_test_samples)]
+	test_labels = [0 for i in range()]
 	test_labels += [1 for i in range(right_test_samples)]
 	# test_data = left.as_matrix()[-(1375*50):][:]
 	# test_data = vstack((test_data, right.as_matrix()[-(1375*50):][:]))
 	# test_data = scale(test_data)
 	test_data = pd.read_csv('csp-scaled-testing-data.csv').as_matrix()
-	test_data = test_data[:,1:]
+	#test_data = test_data[:,1:]
 
-	tmp_data = vstack((test_data[:1375*20,:],test_data[1375*60:1375*80,:]))
+	tmp_data = vstack((test_data[:1375*25,:],test_data[1375*60:1375*85,:]))
 	test_data = reshape(tmp_data,(-1,1375,num_channels))
 	del tmp_data
 	# ypred = clf.predict(test_data)
@@ -192,13 +187,10 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 	scores = model.evaluate(test_data, test_labels, verbose=0)
 	print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 	res = [dropout_after_sequential, lstm_1_nodes, lstm_1_activation, dropout_after_lstm_1, lstm_2_nodes, lstm_2_activation, dropout_after_lstm_2, epochs,dense_activation, scores[1]*100]
-	# res = pd.DataFrame(res)
-	# res = res.T
-	# df = df.append(res)
-	# df.to_csv('nn_result.csv')
-	with open("new_nn_result.csv", "a") as fp:
-	    	wr = csv.writer(fp, dialect='excel')
-	    	wr.writerow(res)
+	res = pd.DataFrame(res)
+	res = res.T
+	df = df.append(res)
+	df.to_csv('nn_result.csv')
 
 
 
@@ -212,7 +204,7 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 
 
 
-train_neural_network(dropout_after_sequential=0.3, lstm_1_nodes=250, lstm_1_activation='sigmoid', dropout_after_lstm_1=0.2, lstm_2_nodes=250, lstm_2_activation="sigmoid", dropout_after_lstm_2=0.2, epochs=1,dense_activation='sigmoid')
+train_neural_network(dropout_after_sequential=0.3, lstm_1_nodes=250, lstm_1_activation='sigmoid', dropout_after_lstm_1=0.2, lstm_2_nodes=250, lstm_2_activation="sigmoid", dropout_after_lstm_2=0.2, epochs=8,dense_activation='sigmoid')
 train_neural_network(dropout_after_sequential=0.3, lstm_1_nodes=250, lstm_1_activation='sigmoid', dropout_after_lstm_1=0.2, lstm_2_nodes=250, lstm_2_activation="sigmoid", dropout_after_lstm_2=0.2, epochs=8,dense_activation='hard_sigmoid')
 train_neural_network(dropout_after_sequential=0.3, lstm_1_nodes=250, lstm_1_activation='sigmoid', dropout_after_lstm_1=0.2, lstm_2_nodes=250, lstm_2_activation="sigmoid", dropout_after_lstm_2=0.2, epochs=8,dense_activation='tanh')
 train_neural_network(dropout_after_sequential=0.3, lstm_1_nodes=250, lstm_1_activation='sigmoid', dropout_after_lstm_1=0.2, lstm_2_nodes=250, lstm_2_activation="sigmoid", dropout_after_lstm_2=0.2, epochs=8,dense_activation='softmax')
