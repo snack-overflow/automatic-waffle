@@ -193,7 +193,7 @@ def train_neural_network(index=0, dropout_after_sequential=0, lstm_1_nodes=0, ls
 
 	scores = model.evaluate(test_data, test_labels, verbose=0)
 	print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
-	res = [dropout_after_sequential, lstm_1_nodes, lstm_1_activation, dropout_after_lstm_1, lstm_2_nodes, lstm_2_activation, dropout_after_lstm_2, epochs,dense_activation, scores[1]*100]
+	res = [index, dropout_after_sequential, lstm_1_nodes, lstm_1_activation, dropout_after_lstm_1, lstm_2_nodes, lstm_2_activation, dropout_after_lstm_2, epochs,dense_activation, scores[1]*100]
 	# res = pd.DataFrame(res)
 	# res = res.T
 	# df = df.append(res)
