@@ -1,8 +1,1 @@
-dropout_after_sequential,lstm_1_nodes,lstm_1_activation,dropout_after_lstm_1,lstm_2_nodes,lstm_2_activation,dropout_after_lstm_2,epochs,dense_activation,accuracy
-0.3,250,sigmoid,0.2,250,sigmoid,0.5,8,softmax,50.0
-0.3,250,sigmoid,0.2,250,sigmoid,0.5,8,linear,57.499999999999993
-0.3,250,sigmoid,0.2,250,tanh,0.2,8,sigmoid,50.0
-0.3,250,sigmoid,0.2,250,tanh,0.2,8,hard_sigmoid,55.000000000000007
-0.3,250,sigmoid,0.2,250,tanh,0.2,8,tanh,60.0
-0.3,250,sigmoid,0.2,250,tanh,0.2,8,softmax,60.0
-0.3,250,sigmoid,0.2,250,tanh,0.2,8,linear,50.0
+index,dropout_after_sequential,lstm_1_nodes,lstm_1_activation,dropout_after_lstm_1,lstm_2_nodes,lstm_2_activation,dropout_after_lstm_2,epochs,dense_activation,accuracy
