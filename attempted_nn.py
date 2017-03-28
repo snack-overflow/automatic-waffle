@@ -35,7 +35,7 @@ from keras.layers import Dense, Activation,Dropout,LSTM
 from keras.models import load_model
 
 model = Sequential()
-model.add(LSTM(64,input_shape=(1375,132),return_sequences=True))
+model.add(LSTM(64,input_shape=(1375,25),return_sequences=True))
 model.add(LSTM(32, return_sequences=True, inner_activation='sigmoid', activation='hard_sigmoid'))
 model.add(LSTM(32, inner_activation='sigmoid', activation='hard_sigmoid'))
 model.add(Dense(1,activation = 'sigmoid'))
@@ -85,7 +85,7 @@ data = data[:,1:]
 # del temp_data
 
 # data = scale(data)
-# data = reshape(data,(119,1375,132))
+data = reshape(data,(-1,1375,25))
 
 # for i in range(200):
 #     print "**",i
@@ -103,7 +103,7 @@ test_labels = [0 for i in range(50)]
 test_labels += [1 for i in range(50)]
 test_data = pd.read_csv('jhol-test.csv').as_matrix()
 test_data = test_data[:,1:]
-
+test_data = reshape(test_data,(-1,1375,25))
 # test_data = scale(test_data)
 # test_labels = [0 for i in range(5)]
 # test_labels += [1 for i in range(5)]
@@ -112,7 +112,7 @@ test_data = test_data[:,1:]
 
 
 # ypred = clf.predict(test_data)
-score = accuracy(test_labels,ypred)
-print score
+#score = accuracy(test_labels,ypred)
+#print score
 score,acc = model.evaluate(test_data, test_labels, batch_size=16,show_accuracy=True)
 print score + "\n" + acc + "\n"
