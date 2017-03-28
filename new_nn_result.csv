@@ -1,1 +1,8 @@
 index,dropout_after_sequential,lstm_1_nodes,lstm_1_activation,dropout_after_lstm_1,lstm_2_nodes,lstm_2_activation,dropout_after_lstm_2,epochs,dense_activation,accuracy
+0.3,250,sigmoid,0.2,250,sigmoid,0.2,1,sigmoid,50.0
+0.3,250,sigmoid,0.2,250,sigmoid,0.2,8,hard_sigmoid,55.000001192092896
+0.3,250,sigmoid,0.2,250,sigmoid,0.2,8,tanh,60.000002384185791
+0.3,250,sigmoid,0.2,250,sigmoid,0.2,8,softmax,50.0
+0.3,250,sigmoid,0.2,250,sigmoid,0.2,8,linear,55.000001192092896
+0.3,250,sigmoid,0.2,250,sigmoid,0.5,8,sigmoid,50.0
+0.3,250,sigmoid,0.2,250,sigmoid,0.5,8,hard_sigmoid,50.0
