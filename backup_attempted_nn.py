@@ -60,9 +60,9 @@ def train_neural_network(index=0, dropout_after_sequential=0, lstm_1_nodes=0, ls
 	if lstm_2_activation in ('hard_sigmoid','softmax'):
 		return
 	df = pd.read_csv('new_nn_result.csv').as_matrix()
-	if index in df[:,0]:
+	temp = df[((df['index']==index) & (df['dropout_after_sequential'] == dropout_after_sequential) & (df['lstm_1_nodes'] == lstm_1_nodes) & (df['lstm_1_activation'] == lstm_1_activation) & (df['dropout_after_lstm_1'] == dropout_after_lstm_1) & (df['lstm_2_nodes'] === lstm_2_nodes) & (df['lstm_2_activation'] == lstm_2_activation) & (df['dropout_after_lstm_2'] == dropout_after_lstm_2) & (df['dense_activation'] == dense_activation))]
+	if len(temp) >0:
 		return
-
 	# to check later if we are retraining on a particular case
 
 	# temp_df = df[df[0] == dropout_after_sequential]
