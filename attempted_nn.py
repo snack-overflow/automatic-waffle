@@ -101,7 +101,7 @@ test_labels = []
 # test_data = vstack((test_data, right.as_matrix()[-(1375*5):,:]))
 test_labels = [0 for i in range(50)]
 test_labels += [1 for i in range(50)]
-test_data = pd.read_csv('jhol-test.csv').as_matrix()
+test_data = pd.read_csv('test-data.csv').as_matrix()
 test_data = test_data[:,1:]
 
 # test_data = scale(test_data)
@@ -112,7 +112,7 @@ test_data = test_data[:,1:]
 
 
 # ypred = clf.predict(test_data)
-score = accuracy(test_labels,ypred)
-print score
+# score = accuracy(test_labels,ypred)
+# print score
 score,acc = model.evaluate(test_data, test_labels, batch_size=16,show_accuracy=True)
 print score + "\n" + acc + "\n"
