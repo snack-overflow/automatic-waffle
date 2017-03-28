@@ -133,10 +133,10 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 	# for i in range(len(right)-1375*5):
 	#     labels.append(1)
 	for i in range(left_train_samples):
-	    labels.append(0)
+		labels.append(0)
 
 	for i in range(right_train_samples):
-	    labels.append(1)
+		labels.append(1)
 
 
 
@@ -146,7 +146,7 @@ def train_neural_network(dropout_after_sequential=0, lstm_1_nodes=0, lstm_1_acti
 	# data = left.as_matrix()[:-5][:]
 	# data = vstack((data,right.as_matrix()[:-(5)][:]))
 	data = pd.read_csv('csp-scaled-training-data.csv').as_matrix()
-	#data = data[:,1:]
+	data = data[:,1:]
 	temp_data = vstack((data[:1375*100,1:],data[1375*600:1375*700,1:]))
 	del data
 	data=temp_data
