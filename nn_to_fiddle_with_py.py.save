@@ -52,10 +52,9 @@ import random
 
 # # import pdb; pdb.set_trace()
 
-
-model = Sequential()
-model.add(Dropout(0.5, input_shape=(1375,25)))
-model.add(LSTM(250,input_shape=(1375,25),activation='sigmoid'))
+#   model = Sequential()
+#model.add(Dropout(0.1, input_shape=(1375,25)))
+#model.add(LSTM(250,input_shape=(1375,25),activation='tanh'))
 
 # model.add(LSTM(32, return_sequences=True, inner_activation='sigmoid', activation='hard_sigmoid'))
 # model.add(Dropout(0.2))
@@ -63,6 +62,7 @@ model.add(LSTM(250,input_shape=(1375,25),activation='sigmoid'))
 # model.add(Dropout(0.2))
 
 model.add(Dense(1,activation = 'sigmoid'))
+
 
 model.compile(optimizer='adam',
               loss='binary_crossentropy',
@@ -73,9 +73,9 @@ model.compile(optimizer='adam',
 #
 # model = load_model('my_model.h5')
 
-#left = pd.read_csv('left-signals.csv',header=None)
-#right = pd.read_csv('right-signals.csv',header=None)
-#print "Finally done loading files :P"
+left = pd.read_csv('left-signals.csv',header=None)
+right = pd.read_csv('right-signals.csv',header=None)
+print "Finally done loading files :P"
 # left = left.transpose()
 # right = right.transpose()
 # left = pd.DataFrame(np.random.rand(1375*10,132))
@@ -116,8 +116,7 @@ data = reshape(data,(-1,1375,25))
 
 
 model.fit(data, labels, nb_epoch=epochs)
-#model.save('phase-4model-2.h5')
-
+model.save('phase-4model-2.h5')
 # test_labels = [0 for i in range(1375*5)]
 # test_labels += [1 for i in range(1375*5)]
 # test_data = left.as_matrix()[-(1375*5):][:]
@@ -130,9 +129,8 @@ test_data = reshape(test_data,(-1,1375,25))
 # ypred = clf.predict(test_data)
 # score = accuracy(test_labels,ypred)
 # print score
-#model=load_model('phase-4model.h5')
-scores,acc = model.evaluate(test_data, test_labels, verbose=0)
-#print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
-print acc
+scores = model.evaluate(test_data, test_labels, verbose=0)
+print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+
 
 
