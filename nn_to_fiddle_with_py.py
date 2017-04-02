@@ -4,7 +4,9 @@ from sklearn.metrics import accuracy_score as accuracy
 import pandas as pd
 from sklearn.preprocessing import scale
 import h5py
-epochs=10
+
+
+epochs=15
 def dense_to_one_hot(labels_dense,num_classes=2):
     num_labels = labels_dense.shape[0]
     labels_one_hot = zeros((num_labels,num_classes))
@@ -54,9 +56,9 @@ import random
 
 
 model = Sequential()
-model.add(Dropout(0.5, input_shape=(1375,25)))
-model.add(LSTM(250,input_shape=(1375,25),activation='sigmoid'))
-
+#model.add(Dropout(0.5, input_shape=(1000,25)))
+model.add(LSTM(250,input_shape=(1000,25),activation='tanh'))
+model.add(Dropout(0.2, input_shape=(1000,25)))
 # model.add(LSTM(32, return_sequences=True, inner_activation='sigmoid', activation='hard_sigmoid'))
 # model.add(Dropout(0.2))
 # model.add(LSTM(32, inner_activation='sigmoid', activation='hard_sigmoid'))
@@ -109,7 +111,7 @@ print "scaled data loaded"
 
 # data = all_data[:,:-1]
 data = reshape(data,(-1,1375,25))
-
+data = data[:,:1000,:]
 
 # clf.fit(data,labels.ravel())
 
@@ -124,9 +126,10 @@ model.fit(data, labels, nb_epoch=epochs)
 # test_data = vstack((test_data, right.as_matrix()[-(1375*5):][:]))
 test_labels = [0 for i in range(10)]
 test_labels += [1 for i in range(10)]
-test_data = pd.read_csv('test-data.csv').as_matrix()
+test_data = pd.read_csv('scaled-testing-data-A02T.csv').as_matrix()
 test_data = test_data[:,1:]
 test_data = reshape(test_data,(-1,1375,25))
+test_data = test_data[:,:1000,:]
 # ypred = clf.predict(test_data)
 # score = accuracy(test_labels,ypred)
 # print score
