@@ -57,14 +57,14 @@ import random
 
 model = Sequential()
 #model.add(Dropout(0.5, input_shape=(1000,25)))
-model.add(LSTM(250,input_shape=(1000,25),activation='tanh'))
+model.add(LSTM(250,input_shape=(1000,25),activation='tanh',use_bias=True,kernel_initializer='random_uniform',bias_initializer='zeros',recurrent_initializers='random_uniform'))
 model.add(Dropout(0.2, input_shape=(1000,25)))
 # model.add(LSTM(32, return_sequences=True, inner_activation='sigmoid', activation='hard_sigmoid'))
 # model.add(Dropout(0.2))
 # model.add(LSTM(32, inner_activation='sigmoid', activation='hard_sigmoid'))
 # model.add(Dropout(0.2))
 
-model.add(Dense(1,activation = 'sigmoid'))
+model.add(Dense(1,activation = 'sigmoid',use_bias=True))
 
 model.compile(optimizer='adam',
               loss='binary_crossentropy',
@@ -116,8 +116,11 @@ data = data[:,:1000,:]
 # clf.fit(data,labels.ravel())
 
 
-
-model.fit(data, labels, nb_epoch=epochs)
+callbacks = [
+    EarlyStopping(monitor='val_loss', patience=2, verbose=0),
+    ModelCheckpoint(kfold_weights_path, monitor='val_loss', save_best_only=True, verbose=0),
+]
+model.fit(data, labels, nb_epoch=epochs,callbacks=callbacks)
 #model.save('phase-4model-2.h5')
 
 # test_labels = [0 for i in range(1375*5)]
