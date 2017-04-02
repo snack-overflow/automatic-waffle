@@ -4,9 +4,9 @@ from sklearn.metrics import accuracy_score as accuracy
 import pandas as pd
 from sklearn.preprocessing import scale
 import h5py
+from keras.callbacks import *
 
-
-epochs=15
+epochs=20
 def dense_to_one_hot(labels_dense,num_classes=2):
     num_labels = labels_dense.shape[0]
     labels_one_hot = zeros((num_labels,num_classes))
@@ -57,8 +57,8 @@ import random
 
 model = Sequential()
 #model.add(Dropout(0.5, input_shape=(1000,25)))
-model.add(LSTM(250,input_shape=(1000,25),activation='tanh',use_bias=True,kernel_initializer='random_uniform',bias_initializer='zeros',recurrent_initializers='random_uniform'))
-model.add(Dropout(0.2, input_shape=(1000,25)))
+model.add(LSTM(250,input_shape=(1000,25),activation='tanh',use_bias=True,kernel_initializer='random_uniform',bias_initializer='zeros',recurrent_initializer='random_uniform'))
+#model.add(Dropout(0.2, input_shape=(1000,25)))
 # model.add(LSTM(32, return_sequences=True, inner_activation='sigmoid', activation='hard_sigmoid'))
 # model.add(Dropout(0.2))
 # model.add(LSTM(32, inner_activation='sigmoid', activation='hard_sigmoid'))
@@ -118,9 +118,9 @@ data = data[:,:1000,:]
 
 callbacks = [
     EarlyStopping(monitor='val_loss', patience=2, verbose=0),
-    ModelCheckpoint(kfold_weights_path, monitor='val_loss', save_best_only=True, verbose=0),
+    ModelCheckpoint("./mymodel.h5", monitor='val_loss', save_best_only=True, verbose=0),
 ]
-model.fit(data, labels, nb_epoch=epochs,callbacks=callbacks)
+model.fit(data, labels, nb_epoch=epochs)
 #model.save('phase-4model-2.h5')
 
 # test_labels = [0 for i in range(1375*5)]
